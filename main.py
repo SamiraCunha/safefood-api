@@ -1,13 +1,15 @@
 from fastapi import FastAPI
 
 app = FastAPI(
-    title="SafeFood API",
+    title="SafeFood FastAPI",
     description="API para gestão e alertas de validade de alimentos",
     version="0.1.0",
 ) 
 
-# Endpoint inicial de teste
+#Criei depois para não dar problema de importação circular
+from Routes.auth_routes import auth_router
+from Routes.products_routes import products_router
 
-@app.get("/")
-def read_root():
-    return {"status": "ok", "message": "API SafeFood está funcionando!"}
+app.include_router(auth_router)
+app.include_router(products_router)
+
